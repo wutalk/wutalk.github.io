@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>SoundManager 2: demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style type="text/css">
+#play_ctrl {
+	display: inline-block;
+	color: white;
+	background-color: green;
+	padding: 5px 8px;
+	width: 65px;
+}
+
+#play_ctrl:hover {
+	color: yellow;
+	cursor: pointer;
+}
+</style>
+<script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write(unescape("%3Cscript src='js/jquery-1.7.2.min.js' type='text/javascript'%3E%3C/script%3E"))</script>
+<script type="text/javascript" src="js/soundmanager2-nodebug-jsmin.js"></script>
+<script type="text/javascript">
+function init() {
+	soundManager.setup({
+	  url: './resource/',
+	  flashVersion: 9, // optional: shiny features (default = 8)
+	  // optional: ignore Flash where possible, use 100% HTML5 mode
+	  // preferFlash: false,
+	  onready: function() {
+		// Ready to use; soundManager.createSound() etc. can now be called.
+		var mySound = soundManager.createSound({
+		  url: './resource/LemonTree.mp3',
+		  onfinish: function() {
+		   $('#play_ctrl').text('re-play >');
+		 },
+		whileloading: function() {
+			//console.log('loading...');
+		},
+		 onload: function() {
+		   //console.log('loaded');
+		 }
+		});
+		$('#play_ctrl').toggle(function() {
+			//console.log('>');
+			mySound.play();
+			$('#play_ctrl').text('pause | |');
+		}, function() {
+			//console.log('||');
+			mySound.pause();
+			$('#play_ctrl').text('play >');
+		});
+	  }
+	});
+}
+</script>
+</head>
+<body class="home">
+<span id="play_ctrl">play ></span>
+<a href="LemonTree.mp3" title="Play &quot;LemonTree&quot;" >LemonTree.mp3</a>
+<script type="text/javascript">
+	$(document).ready(function() {
+		init();
+	});
+</script>
+</body>
+</html>
