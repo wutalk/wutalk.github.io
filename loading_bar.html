@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>loading bar</title>
+<link rel="stylesheet" href="main.css">
+<style type="text/css">
+.loading {
+	position: absolute;
+	top: 10%;
+	left: 10%;
+}
+.loading .txt {
+	font-size: 28px;
+}
+.loading .dot {
+	font-size: 24px;
+}
+</style>
+<!-- load jQuery -->
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+var count = 0;
+function show_loading() {
+	$('#loading .dot').hide();
+	var sz = $('#loading .dot').size();
+
+	var inter = setInterval(function(cnt) {
+		//console.log('show #' + count);
+		$($('#loading .dot').get(count)).show();
+		count++;
+		if(count >= sz) {
+			console.log('clear');
+			count = 0;
+			clearInterval(inter);
+			show_loading();
+		}
+	}, 800, increase_cnt);
+}
+function increase_cnt() {
+	return count+1;
+}
+</script>
+</head>
+<body>
+
+<div id="loading" class="loading">
+	<span class="txt">努 力 加 载</span><br/>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+	<span class="dot">.</span>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		show_loading();
+	});
+</script>
+</body>
+</html>
