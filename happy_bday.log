@@ -1,0 +1,117 @@
+
+// sheng
+showMarker(	new qq.maps.LatLng(	39.968734,81.690117	), micon);
+showMarker(	new qq.maps.LatLng(	39.768279,81.690117	), micon);
+showMarker(	new qq.maps.LatLng(	39.568279,81.690117	), micon);
+showMarker(	new qq.maps.LatLng(	39.308279,81.690117	), micon);
+showMarker(	new qq.maps.LatLng(	39.168279,81.690117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,81.690117	), micon);
+
+showMarker(	new qq.maps.LatLng(	39.798279,81.300117	), micon);
+showMarker(	new qq.maps.LatLng(	39.368279,81.020117	), micon);
+
+showMarker(	new qq.maps.LatLng(	39.568279,81.190117	), micon);
+showMarker(	new qq.maps.LatLng(	39.568279,81.490117	), micon);
+showMarker(	new qq.maps.LatLng(	39.568279,81.890117	), micon);
+showMarker(	new qq.maps.LatLng(	39.598279,82.190117	), micon);
+
+showMarker(	new qq.maps.LatLng(	39.268279,81.220117	), micon);
+showMarker(	new qq.maps.LatLng(	39.268279,81.450117	), micon);
+showMarker(	new qq.maps.LatLng(	39.298279,81.890117	), micon);
+showMarker(	new qq.maps.LatLng(	39.328279,82.120117	), micon);
+
+showMarker(	new qq.maps.LatLng(	38.968279,81.020117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,81.320117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,81.520117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,81.920117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,82.120117	), micon);
+showMarker(	new qq.maps.LatLng(	38.968279,82.320117	), micon);
+
+// ri -
+showMarker(	new qq.maps.LatLng(	39.908734,83.150117	), micon);
+showMarker(	new qq.maps.LatLng(	39.938734,83.450117	), micon);
+// hetian
+showMarker(	new qq.maps.LatLng(	39.973353,83.974834	), micon);
+// |
+showMarker(	new qq.maps.LatLng(	39.708734,83.160117	), micon);
+showMarker(	new qq.maps.LatLng(	39.508734,83.170117	), micon);
+showMarker(	new qq.maps.LatLng(	39.258734,83.170117	), micon);
+showMarker(	new qq.maps.LatLng(	39.008734,83.170117	), micon);
+// |
+showMarker(	new qq.maps.LatLng(	39.708734,83.974834	), micon);
+showMarker(	new qq.maps.LatLng(	39.508734,83.984834	), micon);
+showMarker(	new qq.maps.LatLng(	39.258734,83.984834	), micon);
+showMarker(	new qq.maps.LatLng(	38.958734,83.994834	), micon);
+// -
+showMarker(	new qq.maps.LatLng(	39.518734,83.450117	), micon);
+showMarker(	new qq.maps.LatLng(	39.538734,83.730117	), micon);
+// -
+showMarker(	new qq.maps.LatLng(	39.018734,83.450117	), micon);
+showMarker(	new qq.maps.LatLng(	39.028734,83.720117	), micon);
+// kuai |
+showMarker(	new qq.maps.LatLng(	40.208734,85.004834	), micon);
+showMarker(	new qq.maps.LatLng(	40.008734,85.014834	), micon);
+showMarker(	new qq.maps.LatLng(	39.808734,85.024834	), micon);
+showMarker(	new qq.maps.LatLng(	39.608734,85.024834	), micon);
+showMarker(	new qq.maps.LatLng(	39.408734,85.034834	), micon);
+showMarker(	new qq.maps.LatLng(	39.158734,85.044834	), micon);
+showMarker(	new qq.maps.LatLng(	38.858734,85.054834	), micon);
+// '
+showMarker(	new qq.maps.LatLng(	39.708734,84.724834	), micon);
+showMarker(	new qq.maps.LatLng(	39.508734,84.844834	), micon);
+// '
+showMarker(	new qq.maps.LatLng(	39.758734,85.224834	), micon);
+// 快 ]
+showMarker(	new qq.maps.LatLng(	39.808734,85.304834	), micon);
+showMarker(	new qq.maps.LatLng(	39.828734,85.504834	), micon);
+showMarker(	new qq.maps.LatLng(	39.838734,85.704834	), micon);
+showMarker(	new qq.maps.LatLng(	39.848734,85.954834	), micon);
+showMarker(	new qq.maps.LatLng(	39.858734,86.284834	), micon);
+//
+showMarker(	new qq.maps.LatLng(	39.688734,86.204834	), micon);
+showMarker(	new qq.maps.LatLng(	39.528734,86.124834	), micon);
+//
+showMarker(	new qq.maps.LatLng(	39.428734,85.304834	), micon);
+showMarker(	new qq.maps.LatLng(	39.458734,85.524834	), micon);
+showMarker(	new qq.maps.LatLng(	39.487340,85.724834	), micon);
+showMarker(	new qq.maps.LatLng(	39.508734,85.924834	), micon);
+//showMa  (	new qq.maps.LatLng(	39.528734,86.124834	), micon);
+showMarker(	new qq.maps.LatLng(	39.528734,86.384834	), micon);
+showMarker(	new qq.maps.LatLng(	39.538734,86.624834	), micon);
+// )
+showMarker(	new qq.maps.LatLng(	39.658734,85.724834	), micon);
+showMarker(	new qq.maps.LatLng(	39.287340,85.654834	), micon);
+showMarker(	new qq.maps.LatLng(	39.107340,85.554834	), micon);
+showMarker(	new qq.maps.LatLng(	38.957340,85.304834	), micon);
+
+showMarker(	new qq.maps.LatLng(	40.108734,85.704834	), micon);
+// (
+showMarker(	new qq.maps.LatLng(	39.287340,85.904834	), micon);
+showMarker(	new qq.maps.LatLng(	39.107340,86.154834	), micon);
+showMarker(	new qq.maps.LatLng(	38.907340,86.324834	), micon);
+// 乐 |
+showMarker(	new qq.maps.LatLng(	39.958734,88.014834	), micon);
+showMarker(	new qq.maps.LatLng(	39.768734,88.024834	), micon);
+showMarker(	new qq.maps.LatLng(	39.608734,88.024834	), micon);
+showMarker(	new qq.maps.LatLng(	39.408734,88.034834	), micon);
+showMarker(	new qq.maps.LatLng(	39.158734,88.044834	), micon);
+showMarker(	new qq.maps.LatLng(	38.858734,88.054834	), micon);
+// -
+showMarker(	new qq.maps.LatLng(	39.548734,87.424834	), micon);
+showMarker(	new qq.maps.LatLng(	39.568734,87.724834	), micon);
+showMarker(	new qq.maps.LatLng(	39.618734,88.324834	), micon);
+showMarker(	new qq.maps.LatLng(	39.628734,88.684834	), micon);
+// )
+showMarker(	new qq.maps.LatLng(	40.078734,88.314834	), micon);
+showMarker(	new qq.maps.LatLng(	39.858734,87.754834	), micon);
+showMarker(	new qq.maps.LatLng(	39.808734,87.404834	), micon);
+// )
+showMarker(	new qq.maps.LatLng(	39.458734,87.834834	), micon);
+showMarker(	new qq.maps.LatLng(	39.258734,87.704834	), micon);
+showMarker(	new qq.maps.LatLng(	39.058734,87.504834	), micon);
+showMarker(	new qq.maps.LatLng(	38.858734,87.334834	), micon);
+// (
+showMarker(	new qq.maps.LatLng(	39.408734,88.234834	), micon);
+showMarker(	new qq.maps.LatLng(	39.258734,88.354834	), micon);
+showMarker(	new qq.maps.LatLng(	39.108734,88.584834	), micon);
+showMarker(	new qq.maps.LatLng(	39.008734,88.834834	), micon);
