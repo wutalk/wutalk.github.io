@@ -1,3 +1,195 @@
+/////////method after load/////////////
+
+function panZoom_CDH() {
+	var dest = POS.CHONG_DE_HU;
+	map.panTo(dest);
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	zoomTo(12, 1000, dest, function() {
+		mk.setAnimation(null);
+		show_cdh();
+	});
+}
+function show_cdh() {
+	var dest = POS.CHONG_DE_HU;
+	showInfoWin(dest, $('#image_pair').show().get(0), 3000);
+	setTimeout(function(){
+		showInfoWin(dest, $('#chongdehu2').show().get(0), 3000);
+	},3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_WJ();
+		});
+	}, 6000);
+}
+
+function panZoom_WJ() {
+	var dest = POS.WEN_JIANG;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.CHONG_DE_HU, dest, 2, function() {
+			zoomTo(12, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_wj();
+			});
+		});
+	}, 1000);
+}
+function show_wj() {
+	var dest = POS.WEN_JIANG;
+	showInfoWin(dest, $('#wenjiang').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_SNZH();
+		});
+	}, 3000);
+}
+
+function panZoom_SNZH() {
+	var dest = POS.SHUNAN_ZHUHAI;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.WEN_JIANG, dest, 1, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_snzh();
+			});
+		});
+	}, 1000);
+}
+function show_snzh() {
+	var dest = POS.SHUNAN_ZHUHAI;
+	showInfoWin(dest, $('#shunan_zhuhai').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_EMS();
+		});
+	}, 3000);
+}
+
+function panZoom_EMS() {
+	var dest = POS.E_MEI_SHAN;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.SHUNAN_ZHUHAI, dest, 1, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_ems();
+			});
+		});
+	}, 1000);
+}
+function show_ems() {
+	var dest = POS.E_MEI_SHAN;
+	showInfoWin(dest, $('#emeishan').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_LF();
+		});
+	}, 3000);
+}
+
+function panZoom_LF() {
+	var dest = POS.LAI_FENG;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.E_MEI_SHAN, dest, 3, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_lf();
+			});
+		});
+	}, 1000);
+}
+function show_lf() {
+	var dest = POS.LAI_FENG;
+	showInfoWin(dest, $('#laifeng').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(9, 1000, dest, function() {
+			panZoom_QJ();
+		});
+	}, 3000);
+}
+
+function panZoom_QJ() {
+	var dest = POS.QIAN_JIANG;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.LAI_FENG, dest, 1, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_qj();
+			});
+		});
+	}, 1000);
+}
+function show_qj() {
+	var dest = POS.QIAN_JIANG;
+	showInfoWin(dest, $('#qianjiang').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_XC();
+		});
+	}, 3000);
+}
+
+function panZoom_XC() {
+	var dest = POS.XI_CHANG;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.QIAN_JIANG, dest, 3, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_xc();
+			});
+		});
+	}, 1000);
+}
+function show_xc() {
+	var dest = POS.XI_CHANG;
+	showInfoWin(dest, $('#xichang').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(8, 1000, dest, function() {
+			panZoom_DJY();
+		});
+	}, 3000);
+}
+
+function panZoom_DJY() {
+	var dest = POS.DU_JIANG_YAN;
+	var mk = showMarker(dest, null, qq.maps.MarkerAnimation.BOUNCE);
+	setTimeout(function(){
+		panTo(POS.XI_CHANG, dest, 2, function() {
+			zoomTo(11, 1000, dest, function() {
+				mk.setAnimation(null);
+				show_djy();
+			});
+		});
+	}, 1000);
+}
+function show_djy() {
+	var dest = POS.DU_JIANG_YAN;
+	showInfoWin(dest, $('#dujiangyan').show().get(0), 3000);
+	setTimeout(function(){
+		zoomOutTo(10, 1000, dest, function() {
+			// panZoom_DJY();
+			cd_lx();
+		});
+	}, 3000);
+}
+function cd_lx() {
+	map.panTo(new qq.maps.LatLng(30.276447,104.468517));
+	map.zoomTo(map.getZoom()-1);
+	var mk = showMarker(POS.CHENG_DU, null, qq.maps.MarkerAnimation.BOUNCE);
+	var mk2 = showMarker(POS.LU_XIAN, null, qq.maps.MarkerAnimation.BOUNCE);
+
+	showInfoWin(POS.CHENG_DU, $('#chengdu').show().get(0), 3000);
+	setTimeout(function(){
+		showInfoWin(POS.LU_XIAN, $('#luxian').show().get(0), 3000);	
+		mk.setAnimation(null);
+		mk2.setAnimation(null);
+		calcRoute(POS.CHENG_DU, POS.LU_XIAN);
+	},3000);
+}
 
 function paint() {
 map.setMapTypeId(qq.maps.MapTypeId.SATELLITE);
@@ -72,7 +264,7 @@ showMarker(	new qq.maps.LatLng(	39.708734,83.424834	), micon);
 showMarker(	new qq.maps.LatLng(	39.508734,83.544834	), micon);
 // '
 showMarker(	new qq.maps.LatLng(	39.758734,83.924834	), micon);
-// Âø´ ]
+// øÏ ]
 showMarker(	new qq.maps.LatLng(	39.808734,84.004834	), micon);
 showMarker(	new qq.maps.LatLng(	39.828734,84.204834	), micon);
 showMarker(	new qq.maps.LatLng(	39.838734,84.404834	), micon);
@@ -101,7 +293,7 @@ showMarker(	new qq.maps.LatLng(	39.287340,84.604834	), micon);
 showMarker(	new qq.maps.LatLng(	39.107340,84.854834	), micon);
 showMarker(	new qq.maps.LatLng(	38.907340,85.024834	), micon);
 
-// ‰πê |
+// ¿÷ |
 showMarker(	new qq.maps.LatLng(	40.258734,86.814833	), micon);
 showMarker(	new qq.maps.LatLng(	40.068734,86.824834	), micon);
 showMarker(	new qq.maps.LatLng(	39.908733,86.824834	), micon);
@@ -129,4 +321,65 @@ showMarker(	new qq.maps.LatLng(	39.408733,87.384834	), micon);
 showMarker(	new qq.maps.LatLng(	39.308733,87.634834	), micon);
 
 
+}
+function getpoint() {
+var micon = new qq.maps.MarkerImage("icon/Citrine-24.png");
+map.setMapTypeId(qq.maps.MapTypeId.SATELLITE);
+map.panTo(new qq.maps.LatLng(	39.968734,81.690117	));
+	qq.maps.event.addListener(map,"click",function(e){
+        console.log(e.latLng.getLat().toFixed(4) + '-' + e.latLng.getLng().toFixed(4));
+    });
+var le = [
+
+{lat:	40.3047, lng:86.8744	},
+{lat:	40.2879, lng:86.7151	},
+{lat:	40.2711, lng:86.5503	},
+{lat:	40.2544, lng:86.4349	},
+{lat:	40.2544, lng:86.3031	},
+{lat:	40.2460, lng:86.1823	},
+{lat:	40.1075, lng:86.1713	},
+{lat:	39.9434, lng:86.1383	},
+{lat:	39.9434, lng:86.2701	},
+{lat:	39.9476, lng:86.4240	},
+{lat:	39.9519, lng:86.5723	},
+{lat:	39.9392, lng:86.7316	},
+{lat:	39.9392, lng:86.8744	},
+{lat:	39.9434, lng:87.0227	},
+{lat:	40.1705, lng:86.5668	},
+{lat:	40.0528, lng:86.5668	},
+{lat:	39.9519, lng:86.5723	},
+{lat:	39.8339, lng:86.5778	},
+{lat:	39.7199, lng:86.5668	},
+{lat:	39.6226, lng:86.5723	},
+{lat:	39.5083, lng:86.5228	},
+{lat:	39.5549, lng:86.3800	},
+{lat:	39.8296, lng:86.3416	},
+{lat:	39.7241, lng:86.2427	},
+{lat:	39.6607, lng:86.1383	},
+{lat:	39.5676, lng:85.9900	},
+{lat:	39.8423, lng:86.7371	},
+{lat:	39.7241, lng:86.8964	},
+{lat:	39.5845, lng:86.9733	}
+
+
+];
+/*
+for (var i = 0; i< le.length; i++) {
+	showMarker(	new qq.maps.LatLng(	le[i].lat,le[i].lng	), micon);
+}
+*/
+}
+
+function main() {
+	init_map();
+	//panZoom_CDH();
+	//panZoom_WJ();
+	//panZoom_SNZH();
+	//panZoom_LF();
+	//panZoom_QJ();
+	//panZoom_XC();
+	//panZoom_DJY();
+	//paint();
+	getpoint();
+	
 }
