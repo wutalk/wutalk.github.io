@@ -1,15 +1,23 @@
+/*
+ * @(#) 2014-7-10
+ * Copyright (c) 2014 @wutalk on github. All rights reserved.
+ */
 package javaByExamples;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.RandomAccess;
 
 import org.junit.Test;
 
+
+/**
+ * 
+ * @author wutalk
+ */
 class Reversor {
 	private static final int REVERSE_THRESHOLD = 18;
 
@@ -33,7 +41,7 @@ class Reversor {
 
 	public static void swap(List<?> list, int i, int j) {
 		final List l = list;
-//		l.set(i, l.set(j, l.get(i)));
+		// l.set(i, l.set(j, l.get(i)));
 		l.set(j, l.set(i, l.get(j)));
 	}
 }
@@ -50,7 +58,7 @@ public class ReverseListTest {
 
 		assertEquals("one", numbers.get(0));
 
-//		Collections.reverse(numbers);
+		// Collections.reverse(numbers);
 		Reversor.reverse(numbers);
 
 		assertEquals("four", numbers.get(0));
