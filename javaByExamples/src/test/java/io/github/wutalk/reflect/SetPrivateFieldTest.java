@@ -2,7 +2,7 @@
  * @(#) 2014-7-10
  * Copyright (c) 2014 @wutalk on github. All rights reserved.
  */
-package javaByExamples;
+package io.github.wutalk.reflect;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
