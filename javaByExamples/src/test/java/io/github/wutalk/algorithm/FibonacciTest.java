@@ -32,8 +32,8 @@ class Fibonacci {
 			for (int i = 2; i < n; i++) {
 				sum = f1 + f2;
 				System.out.print(sum + ", ");
-				f2 = f1;
-				f1 = sum;
+				f1 = f2;
+				f2 = sum;
 			}
 			return sum;
 		}

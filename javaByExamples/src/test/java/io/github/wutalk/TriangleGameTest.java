@@ -4,7 +4,9 @@
  */
 package io.github.wutalk;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.math.BigInteger;
 
 import org.junit.Test;
 
@@ -37,10 +39,6 @@ public class TriangleGameTest {
 		// -2^31 ~ 2^31-1 (-2147483648 ~ 2147483647)
 		int max = Integer.parseInt("2147483647");
 		assertEquals(Integer.MAX_VALUE, max);
-
-		int maxPlus = Integer.parseInt("2147483646");
-		double pow = Math.pow(2.0, 31.0);
-		System.out.println(pow);
 	}
 
 	@Test
@@ -48,5 +46,15 @@ public class TriangleGameTest {
 		String argsLine = "-p 3 4 5";
 		String[] args = argsLine.split("\\s+");
 		TriangleGame.main(args);
+	}
+
+	@Test
+	public void testLongMax() throws Exception {
+		long max = Long.MAX_VALUE;
+		BigInteger bi = BigInteger.valueOf(max);
+
+		assertEquals(19, String.valueOf(max).length());
+		assertEquals(new BigInteger("18446744073709551614"), bi.add(bi));// ok
+		assertEquals(-2, max + max);// overflow
 	}
 }
