@@ -8,10 +8,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 class CountingTask extends TimerTask {
+
+	private static final Logger LOGGER = Logger.getLogger(CountingTask.class);
 	String name;
 
 	public CountingTask(String name) {
@@ -23,18 +26,20 @@ class CountingTask extends TimerTask {
 
 	@Override
 	public void run() {
-		System.out.println(name + " count: " + count);
+		LOGGER.info(name + " count: " + count);
+		// if don't catch, no error message on log4j
 		try {
 			if (count++ > 3) {
 				throw new RuntimeException();
 			}
 		} catch (Exception e) {
-			System.out.println("error: " + e);
+			LOGGER.error("error: " + e);
 		}
 	}
 }
 
 class CountingRunnable implements Runnable {
+	private static final Logger LOGGER = Logger.getLogger(CountingRunnable.class);
 	String name;
 
 	public CountingRunnable(String name) {
@@ -45,13 +50,13 @@ class CountingRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println(name + " count: " + count);
+		LOGGER.info(name + " count: " + count);
 		try {
 			if (count++ > 3) {
 				throw new RuntimeException();
 			}
 		} catch (Exception e) {
-			System.out.println("error: " + e);
+			LOGGER.error("error: " + e);
 		}
 	}
 }
@@ -64,19 +69,13 @@ public class TimerVsExecutorService {
 
 	public static void main(String[] args) {
 
-		Timer timer = new Timer(false);
+		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new CountingTask("timer"), 500, 1000);
 
 		ScheduledExecutorService exec = Executors.newScheduledThreadPool(2);
-//		exec.scheduleAtFixedRate(new CountingRunnable("exec"), 500, 1000, TimeUnit.MILLISECONDS);
+		exec.scheduleAtFixedRate(new CountingRunnable("exec"), 500, 1000, TimeUnit.MILLISECONDS);
 
 		System.out.println("waiting...");
-		// try {
-		// TimeUnit.SECONDS.sleep(10);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-	}
 
+	}
 }
