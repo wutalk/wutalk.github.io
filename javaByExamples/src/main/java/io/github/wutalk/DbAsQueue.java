@@ -19,40 +19,6 @@ import java.util.NoSuchElementException;
  */
 public class DbAsQueue {
 
-	private Connection connection;
-	private Statement statement;
-
-	public DbAsQueue(String file) {
-		
-	}
-
-	public boolean offer(String dn) {
-		return false;
-	}
-
-	public String poll() {
-		return "";
-	}
-
-	public String remove() throws NoSuchElementException {
-		return "";
-	}
-
-	public String peek() {
-		return "";
-	}
-
-	public int size() {
-		return -1;
-	}
-
-	public boolean isEmpty() {
-		return false;
-	}
-
-	public void clear() {
-		//
-	}
 
 	public static void main(String[] args) throws ClassNotFoundException {
 		// load the sqlite-JDBC driver using the current class loader

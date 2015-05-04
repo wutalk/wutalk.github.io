@@ -23,6 +23,12 @@ public class SqliteTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		if (args.length < 1) {
+			// F:/temp/test_sqlite.db
+			// D:/temp/test_sqlite.db
+			System.out.println("Usage: java SqliteTest path/to/dbfile");
+			System.exit(0);
+		}
 		try {
 			Class.forName("org.sqlite.JDBC");
 
@@ -32,7 +38,7 @@ public class SqliteTest {
 		Connection connection = null;
 		try {
 			// create a database connection
-			String dbFile = "D:/temp/test_sqlite.db";
+			String dbFile = args[0];
 
 			deleteDB(dbFile);
 
@@ -45,13 +51,13 @@ public class SqliteTest {
 
 			System.out.println("insert start");
 			long from = System.currentTimeMillis();
-			int count = 100 * 1000;
+			int count = 1 * 100;
 			PreparedStatement ps = connection
 					.prepareStatement("insert into object_dn (dn) values (?)");
 			for (int i = 0; i < count; i++) {
 				ps.setString(1, "PLMN-PLMN/MRBTS-" + i);
 				ps.addBatch();
-				if(i % 100 == 0) {
+				if (i % 100 == 0) {
 					ps.executeBatch();
 					ps.clearParameters();
 				}
@@ -59,7 +65,9 @@ public class SqliteTest {
 			int[] batchCount = ps.executeBatch();
 			long to = System.currentTimeMillis();
 
-			// inserted 10 * 1000 in ms 43257, 4.4 ms/dn, inserted 100000 in ms 442356, 3,098,624 bytes
+			// inserted 10 * 1000 in ms 43257, 4.4 ms/dn, 231 DN/s
+			// inserted 100000 in ms 442356, 3,098,624 bytes
+			// old pc: inserted 100 in ms 10935, 109.4 ms/dn
 			System.out.println("inserted " + count + " in ms " + (to - from));
 
 			ResultSet rs = statement.executeQuery("select seq, dn from object_dn");
@@ -114,8 +122,8 @@ public class SqliteTest {
 	}
 
 	/**
-	 * http://sqlite.org/limits.html Maximum Number Of Rows In A Table: 264
-	 * (18446744073709551616 or about 1.8e+19) <br/>
+	 * http://sqlite.org/limits.html Maximum Number Of Rows In A Table: 264 (18446744073709551616 or
+	 * about 1.8e+19) <br/>
 	 * Maximum Database Size: 140 terabytes, or 128 tebibytes
 	 */
 	private static void pragmaInfo(Statement statement) throws SQLException {
