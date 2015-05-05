@@ -79,12 +79,31 @@ public class SqlitePeTest {
 
 	/**
 	 * <pre>
+	 * size: sqlite-jdbc-3.8.7.jar	3,959,324 bytes
+	 * size: bigqueue-0.7.1.jar		   40,302 bytes
+	 * 
 	 * on workPC
 	 * insert 10000 DNs...
 	 * used time: 86.01s insert speed: 116.27 DN/s
 	 * 
 	 * poll(find and delete) 10000 DNs...
 	 * used time: 91.46s poll speed: 109.33 DN/s
+	 * 
+	 * 
+	 * insert 100000 DNs...
+	 * used time: 0.35s insert speed: 285714.29 DN/s 2400X
+	 * 
+	 * poll 100000 DNs...
+	 * used time: 0.20s insert speed: 497512.44 DN/s 4500X
+	 * 
+	 * 
+	 * JDK in-memory queue
+	 * 
+	 * insert 100000 DNs...
+	 * used time: 0.06s insert speed: 1818181.82 DN/s 6X
+	 * 
+	 * poll 100000 DNs...
+	 * used time: 0.02s insert speed: 5555555.56 DN/s 11X
 	 * </pre>
 	 */
 	@Test
