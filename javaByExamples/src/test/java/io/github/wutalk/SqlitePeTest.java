@@ -75,37 +75,76 @@ public class SqlitePeTest {
 		System.out.println("tearDown done");
 	}
 
+	int count = 100;
+
+	/**
+	 * <pre>
+	 * on workPC
+	 * insert 10000 DNs...
+	 * used time: 86.01s insert speed: 116.27 DN/s
+	 * 
+	 * poll(find and delete) 10000 DNs...
+	 * used time: 91.46s poll speed: 109.33 DN/s
+	 * </pre>
+	 */
 	@Test
 	public void pet() {
 		insert();
 		orderlyFindAndDelete();
+
+		setmmap_size();
+
+		insert();
+		orderlyFindAndDelete();
+	}
+
+	void setmmap_size() {
+		ResultSet rs;
+		try {
+			rs = statement.executeQuery("PRAGMA mmap_size");
+
+			System.out.println("memory-mapped mmap_size: " + rs.getInt(1) + " bytes");
+
+			// change PRAGMA setting
+			int mmap_size = 1 * 1024 * 1024; // 1m
+			rs = statement.executeQuery("PRAGMA mmap_size=" + mmap_size);
+			System.out.println("mmap_size set to " + mmap_size + " bytes");
+
+			rs = statement.executeQuery("PRAGMA mmap_size");
+			System.out.println("memory-mapped mmap_size: " + rs.getInt(1) + " bytes");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	void insert() {
 		try {
 			PreparedStatement ps = connection
 					.prepareStatement("insert into object_dn (dn) values (?)");
-			int count = 100;
 
 			System.out.println();
 			System.out.println("insert " + count + " DNs...");
+			int inserted = 0;
 			long from = System.currentTimeMillis();
 			for (int i = 0; i < count; i++) {
 				ps.setString(1, "PLMN-PLMN/MRBTS-" + i);
 				ps.addBatch();
-				// if (i % 100 == 0) {
-				// ps.executeBatch();
-				// ps.clearParameters();
-				// }
+				if (i % 100 == 0) {
+					int[] batchCount = ps.executeBatch();
+					inserted += batchCount.length;
+					ps.clearParameters();
+				}
 			}
 			int[] batchCount = ps.executeBatch();
 			long to = System.currentTimeMillis();
+			inserted += batchCount.length;
 
 			double dur = (to - from) / 1000.0;
 			double speed = count / dur;
 			System.out.format("used time: %.2fs insert speed: %.2f DN/s\r\n", dur, speed);
 
-			assertEquals(count, batchCount.length);
+			assertEquals(count, inserted);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -115,7 +154,6 @@ public class SqlitePeTest {
 
 	void orderlyFindAndDelete() {
 		try {
-			int count = 100;
 
 			System.out.println();
 			System.out.println("poll(find and delete) " + count + " DNs...");
