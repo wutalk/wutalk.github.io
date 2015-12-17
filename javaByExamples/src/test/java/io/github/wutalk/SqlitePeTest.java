@@ -116,7 +116,7 @@ public class SqlitePeTest {
 		insert();
 		orderlyFindAndDelete();
 	}
-
+	
 	void setmmap_size() {
 		ResultSet rs;
 		try {

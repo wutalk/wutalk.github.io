@@ -38,6 +38,11 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.8.7</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.sarxos</groupId>
+			<artifactId>webcam-capture</artifactId>
+			<version>0.3.12-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
