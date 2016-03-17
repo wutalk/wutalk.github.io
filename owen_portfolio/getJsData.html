@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>get js data</title>
+<style type="text/css">
+	
+</style>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sh000300,sh000905,sh000001,sz399001" charset="gb2312"></script>
+<script type="text/javascript">
+
+function fill_data(ele, data) {
+	// console.log('callled');
+	var elements=data.split(",");
+	$(ele).each(function(idx) {
+		var txt = elements[idx];
+		if(idx > 0) {
+			var txt = parseFloat(txt).toFixed(2);
+		}
+		$(this).text(txt);
+	});
+}
+
+$(document).ready(function() {
+	// console.log('start');
+	// console.log(hq_str_sh000300);
+	fill_data($('#sh000300 td'), hq_str_sh000300);
+	fill_data($('#sh000905 td'), hq_str_sh000905);
+	fill_data($('#sh000001 td'), hq_str_sh000001);
+	fill_data($('#sz399001 td'), hq_str_sz399001);
+	
+	$('tbody tr').each(function() {
+		var line = $(this).children();
+		// console.log($(line[3]).text());
+		var current = parseFloat($(line[3]).text());
+		var last = parseFloat($(line[2]).text());
+		var gap = current - last;
+		var percent = parseFloat(100*gap/last).toFixed(2);
+		if(gap > 0) {
+			$(line[3]).css('color', 'red');
+			$(line[6]).text(percent).css('color', 'red');
+		} else {
+			$(line[3]).css('color', 'green');
+			$(line[6]).text(percent).css('color', 'green');
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+
+<table id="cnt" style="width: 95%;">
+<thead>
+<tr>
+<td>名称</td>
+<td>今开</td>
+<td>昨收</td>
+<td>现在</td>
+<td>最高</td>
+<td>最低</td>
+<td>涨幅%</td>
+</tr>
+</thead>
+
+<tbody>
+<tr id="sh000300">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sh000905">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sh000001">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sz399001">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+
+</body>
+</html>
