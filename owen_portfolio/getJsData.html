@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>get js data</title>
+<title>行情观察</title>
 <style type="text/css">
 	
 </style>
@@ -15,10 +15,12 @@ function fill_data(ele, data) {
 	var elements=data.split(",");
 	$(ele).each(function(idx) {
 		var txt = elements[idx];
-		if(idx > 0) {
+		if(idx == 0) {
+			$(this).find('a').text(txt);
+		} else {
 			var txt = parseFloat(txt).toFixed(2);
+			$(this).text(txt);
 		}
-		$(this).text(txt);
 	});
 }
 
@@ -66,7 +68,7 @@ $(document).ready(function() {
 
 <tbody>
 <tr id="sh000300">
-<td></td>
+<td><a href="http://xueqiu.com/S/SH000300"></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -75,7 +77,7 @@ $(document).ready(function() {
 <td></td>
 </tr>
 <tr id="sh000905">
-<td></td>
+<td><a href="http://xueqiu.com/S/SH000905"></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -84,7 +86,7 @@ $(document).ready(function() {
 <td></td>
 </tr>
 <tr id="sh000001">
-<td></td>
+<td><a href="http://xueqiu.com/S/SH000001"></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -93,7 +95,7 @@ $(document).ready(function() {
 <td></td>
 </tr>
 <tr id="sz399001">
-<td></td>
+<td><a href="http://xueqiu.com/S/SZ399001"></a></td>
 <td></td>
 <td></td>
 <td></td>
