@@ -23,29 +23,32 @@ import org.w3c.dom.NodeList;
  */
 public class XmlParser {
 
-	public static void main(String[] args) throws Exception {
-		
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		
-		String fileName = "D:\\var\\tmp\\ocos.xml";
-		
-		Document doc = builder.parse(new File(fileName));
-		Element element = doc.getDocumentElement();
-		NodeList nodes = element.getElementsByTagName("p");
-		
-		int size = nodes.getLength();
-		System.out.println(size);
+    public static void main(String[] args) throws Exception {
+        System.exit(0);
 
-		Set<String> tags = new TreeSet<String>();
-		for (int i = 0; i < size; i++) {
-			Node node = nodes.item(i);
-			NamedNodeMap attributes = node.getAttributes();
-			Node namedItem = attributes.getNamedItem("name");
-			tags.add(namedItem.getTextContent());
-		}
-		for (String tag : tags) {
-			System.out.println(tag);
-		}
-	}
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        String fileName = "D:\\tmp\\ocos.xml";
+
+        Document doc = builder.parse(new File(fileName));
+        Element element = doc.getDocumentElement();
+        NodeList nodes = element.getElementsByTagName("p");
+
+        int size = nodes.getLength();
+        System.out.println(size);
+
+        Set<String> tags = new TreeSet<String>();
+        for (int i = 0; i < size; i++) {
+            Node node = nodes.item(i);
+            NamedNodeMap attributes = node.getAttributes();
+            Node namedItem = attributes.getNamedItem("name");
+            tags.add(namedItem.getTextContent());
+        }
+        for (String tag : tags) {
+            System.out.println(tag);
+        }
+    }
+
+
 }
