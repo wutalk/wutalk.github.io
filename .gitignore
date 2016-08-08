@@ -1,5 +1,7 @@
 # please ignore these files
+*.iml
 .classpath
 .project
 .settings/
+.idea/
 target/

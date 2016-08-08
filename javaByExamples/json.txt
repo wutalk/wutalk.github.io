@@ -1,0 +1,41 @@
+{
+	"comp_op": "AND",
+	"conditions": [{
+		"operator": "EQUAL",
+		"property": "status",
+		"value": "active"
+	}, {
+		"operator": "EQUAL",
+		"property": "name",
+		"value": "john"
+	}, {
+		"operator": "GREAT_THAN",
+		"property": "level",
+		"value": 10
+	}],
+	"composites": [{
+		"comp_op": "OR",
+		"conditions": [{
+			"operator": "GREAT_THAN",
+			"property": "salary",
+			"value": "50000"
+		}, {
+			"operator": "BETWEEN",
+			"property": "age",
+			"value": "10",
+			"to": "20"
+		}],
+		"composites": [{
+			"comp_op": "AND",
+			"conditions": [{
+				"operator": "NOT_EQUAL",
+				"property": "severity",
+				"value": "warning"
+			}, {
+				"operator": "EQUAL",
+				"property": "address",
+				"value": "chengdu"
+			}]
+		}]
+	}]
+}
