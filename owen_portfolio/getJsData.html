@@ -3,22 +3,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>get js data</title>
-<style type="text/css">
-	
+<link rel="stylesheet" href="./tables.css">
 </style>
 <script src="./jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="http://hq.sinajs.cn/list=sh000300,sh000905,sh000001,sz399001" charset="gb2312"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sh000015,sh000016,sh000922,sh000925,sh000300,sh000905,sh000001,sz399001,sz399006" charset="gb2312"></script>
 <script type="text/javascript">
 
 function fill_data(ele, data) {
-	// console.log('callled');
+	// console.log('called');
 	var elements=data.split(",");
 	$(ele).each(function(idx) {
 		var txt = elements[idx];
 		if(idx == 0) {
-			$(this).find('a').text(txt);
+			var txt = elements[idx];
+			$(this).find('a').text(txt).css('color', 'gray');
+		} else if(idx == 1) {
+			// do nothing
+			console.log('txt: ' + txt);
 		} else {
-			var txt = parseFloat(txt).toFixed(2);
+			var txt = elements[idx - 1];
+			txt = parseFloat(txt).toFixed(2);
 			$(this).text(txt);
 		}
 	});
@@ -26,25 +30,30 @@ function fill_data(ele, data) {
 
 $(document).ready(function() {
 	// console.log('start');
-	// console.log(hq_str_sh000300);
+	// console.log(hq_str_sh000015);
+	fill_data($('#sh000015 td'), hq_str_sh000015);
+	fill_data($('#sh000016 td'), hq_str_sh000016);
+	fill_data($('#sh000922 td'), hq_str_sh000922);
+	fill_data($('#sh000925 td'), hq_str_sh000925);
 	fill_data($('#sh000300 td'), hq_str_sh000300);
 	fill_data($('#sh000905 td'), hq_str_sh000905);
 	fill_data($('#sh000001 td'), hq_str_sh000001);
 	fill_data($('#sz399001 td'), hq_str_sz399001);
-	
+	fill_data($('#sz399006 td'), hq_str_sz399006);
+
 	$('tbody tr').each(function() {
 		var line = $(this).children();
 		// console.log($(line[3]).text());
-		var current = parseFloat($(line[3]).text());
-		var last = parseFloat($(line[2]).text());
+		var current = parseFloat($(line[4]).text());
+		var last = parseFloat($(line[3]).text());
 		var gap = current - last;
 		var percent = parseFloat(100*gap/last).toFixed(2);
 		if(gap > 0) {
-			$(line[3]).css('color', 'red');
-			$(line[6]).text(percent).css('color', 'red');
+			$(line[4]).css('color', 'red');
+			$(line[1]).text(percent).css('color', 'red');
 		} else {
-			$(line[3]).css('color', 'green');
-			$(line[6]).text(percent).css('color', 'green');
+			$(line[4]).css('color', 'green');
+			$(line[1]).text(percent).css('color', 'green');
 		}
 	});
 });
@@ -53,20 +62,57 @@ $(document).ready(function() {
 </head>
 <body>
 
-<table id="cnt" style="width: 95%;">
+<table id="cnt" class="pure-table pure-table-horizontal" style="color:gray;">
 <thead>
 <tr>
 <td>名称</td>
+<td>涨幅%</td>
 <td>今开</td>
 <td>昨收</td>
 <td>现在</td>
 <td>最高</td>
 <td>最低</td>
-<td>涨幅%</td>
 </tr>
 </thead>
 
 <tbody>
+<tr id="sh000016">
+<td><a href="http://xueqiu.com/S/SH000016"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sh000015">
+<td><a href="http://xueqiu.com/S/SH000015"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sh000922">
+<td><a href="http://xueqiu.com/S/SH000922"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sh000925">
+<td><a href="http://xueqiu.com/S/SH000925"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
 <tr id="sh000300">
 <td><a href="http://xueqiu.com/S/SH000300"></a></td>
 <td></td>
@@ -76,6 +122,7 @@ $(document).ready(function() {
 <td></td>
 <td></td>
 </tr>
+
 <tr id="sh000905">
 <td><a href="http://xueqiu.com/S/SH000905"></a></td>
 <td></td>
@@ -96,6 +143,15 @@ $(document).ready(function() {
 </tr>
 <tr id="sz399001">
 <td><a href="http://xueqiu.com/S/SZ399001"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr id="sz399006">
+<td><a href="http://xueqiu.com/S/SZ399006"></a></td>
 <td></td>
 <td></td>
 <td></td>
