@@ -3,25 +3,27 @@
  * Copyright (c) 2015 @wutalk on github. All rights reserved.
  */
 package io.github.wutalk.cam;
-
+public class MotionDetector{}
+/*
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;*/
 
-import com.github.sarxos.webcam.Webcam;
+/*import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamMotionDetector;
 import com.github.sarxos.webcam.WebcamMotionEvent;
-import com.github.sarxos.webcam.WebcamMotionListener;
+import com.github.sarxos.webcam.WebcamMotionListener;*/
 
 /**
  * use api from https://github.com/sarxos/webcam-capture.git
  * 
  * @author owu
  */
+/*
 public class MotionDetector implements WebcamMotionListener {
 
     private static final String TEMP_DIR = "D:/tmp/image-cache";
@@ -69,3 +71,4 @@ public class MotionDetector implements WebcamMotionListener {
         ImageIO.write(image, "PNG", new File(TEMP_DIR, imageName));
     }
 }
+*/

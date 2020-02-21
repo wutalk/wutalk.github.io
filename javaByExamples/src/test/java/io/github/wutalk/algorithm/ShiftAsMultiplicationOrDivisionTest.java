@@ -35,10 +35,10 @@ public class ShiftAsMultiplicationOrDivisionTest {
 		int n = 7;
 		int shift = 1;
 		// shift by 1, multiply 2^1
-		assertEquals(n * (Math.pow(2, shift)), n << shift);
+		assertEquals(n * (Math.pow(2, shift)), n << shift, 0.01);
 		// shift by 2, multiply 2^2
 		shift = 2;
-		assertEquals(n * (Math.pow(2, shift)), n << shift);
+		assertEquals(n * (Math.pow(2, shift)), n << shift, 0.01);
 
 		n = -7;
 		assertEquals(-14, n << 1);

@@ -17,12 +17,14 @@ import java.sql.Statement;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * 
  * @author wutalk
  */
+@Ignore
 public class SqlitePeTest {
 
 	private Connection connection;
