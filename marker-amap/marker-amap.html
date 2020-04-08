@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+	<title>Land Price Mark</title>
+	<!--link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/-->
+	<link rel="stylesheet" href="demo-center.css" />
+	<style>
+		html,
+		body,
+		#container {
+			height: 100%;
+			width: 100%;
+		}
+
+		.amap-icon img {
+			width: 25px;
+			height: 34px;
+		}
+
+		.amap-marker-label {
+			border: 0;
+			background-color: transparent;
+		}
+
+		.info {
+			position: relative;
+			top: 0;
+			right: 0;
+			min-width: 0;
+		}
+
+		.you {
+			border-radius: .25rem;
+			position: fixed;
+			top: 1rem;
+			background-color: yellow;
+			width: auto;
+			min-width: 22rem;
+			border-width: 0;
+			right: 1rem;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<!--script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ccfc57a0582fa29221d1c33db558cf61"></script-->
+	<script type="text/javascript" src="maps.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript">
+		var map = new AMap.Map('container', {
+			resizeEnable: true,
+			center: [104.068832, 30.533208],
+			zoom: 11
+		});
+		// styleName: normal, dark, light, whitesmoke, fresh
+		var styleName = "amap://styles/whitesmoke";
+		map.setMapStyle(styleName);
+
+		map.plugin(["AMap.MapType"], function () {
+			//地图类型切换
+			var type = new AMap.MapType({
+				defaultType: 0 //使用2D地图
+			});
+			map.addControl(type);
+		});
+
+		map.plugin(["AMap.ToolBar"], function () {
+			//加载工具条
+			var tool = new AMap.ToolBar();
+			map.addControl(tool);
+		});
+
+		var marks = [
+			{ pos: [103.953848, 30.676839], label: "1.5,r2.5", title: "五矿,33亩，2019-11-28" },
+			{ pos: [104.167724, 30.700174], label: "1.1,r?", title: "金融街,54亩，2019-11-28" },
+
+			{ pos: [104.118979, 30.410568], label: "1,r2?", title: "兴城人居,71亩，2019-12-17" },
+			{ pos: [104.11885, 30.412122], label: "0.9,r2?", title: "兴城人居,84亩，2019-12-17" },
+			{ pos: [104.110843, 30.384486], label: "1,r2", title: "龙湖+兆信,35亩，2019-12-26" },
+			{ pos: [104.169187, 30.666852], label: "1.1,r1.5", title: "蓝光和骏,91亩，2019-12-30" },
+			{ pos: [104.163897, 30.660733], label: "1.25,r2", title: "四川邦泰,81亩，2019-12-30" },
+			{ pos: [103.967903, 30.632802], label: "1.3,r1.5", title: "深圳创琪,97亩，2019-12-31" },
+			{ pos: [103.998888, 30.699284], label: "1.7,r4", title: "中铁,137亩，2019-12-31" },
+
+			{ pos: [104.085212, 30.245687], label: "0.26,r2.5", title: "眉天投-龙光-三聚乙0.25-0.29,11宗地合计850亩，2020-02-19" },
+
+			{ pos: [104.106949, 30.455615], label: "1.1,r2", title: "德商11%移交,118亩，2020-01-16" },
+
+			{ pos: [104.112084, 30.475434], label: "1.4,r2", title: "蓝光23%移交,50亩，2020-02-23" },
+			{ pos: [104.111612, 30.471403], label: "1.3,r2", title: "佳兆业23%移交,68亩，2020-02-23" },
+			{ pos: [103.996431, 30.542128], label: "0.8,r1.5", title: "恒华泰利,42亩，2020-02-25" },
+			{ pos: [104.020637, 30.52378], label: "1.4,r1.5", title: "华兴1.37,86亩，2020-02-25" },
+			{ pos: [104.076292, 30.464846], label: "1.3,r2", title: "卓越15%移交,48亩，2020-02-26" },
+			{ pos: [104.214003, 30.570629], label: "1.1,r?", title: "隆基泰和,32亩，2020-02-28" },
+
+			{ pos: [104.139224, 30.788596], label: "0.7,r1.5", title: "广西建工,74亩，2020-03-31" },
+			{ pos: [104.120115, 30.626167], label: "2.1,r2.7", title: "建发2w+7%移交,130亩，2020-04-02" },
+			{ pos: [103.974902, 30.64326], label: "1.3,r2.5", title: "中南1.27,19亩,2020-04-02" },
+			{ pos: [104.074108, 30.361062], label: "1.1,r2.2", title: "荣盛1w+12%移交,2020-04-08" }
+		];
+
+		var yous = [
+			{ pos: [104.081677, 30.405969], label: "实验幼", title: "天府实验幼儿园" },
+			{ pos: [104.117721, 30.396567], label: "?幼", title: "天府?幼（三根松幼儿园）" },
+			{ pos: [104.082798, 30.443684], label: "八幼", title: "天府八幼" },
+			{ pos: [104.075665, 30.475423], label: "幼儿园", title: "华阳幼儿园-沙河" },
+		];
+		var xiaos = [
+			{ pos: [104.053395, 30.52805], label: "小学", title: "锦江小学" },
+			{ pos: [104.055294, 30.5084], label: "小学", title: "华阳实验小学" },
+			{ pos: [104.051078, 30.507762], label: "小学", title: "华阳小学" },
+			{ pos: [104.062086, 30.51244], label: "小学", title: "华阳中学附属小学" },
+			{ pos: [104.077449, 30.504213], label: "小学", title: "成都师范紫藤银都小学" },
+			{ pos: [104.084091, 30.407811], label: "小学", title: "成都市实验小学（天府一小）" },
+			{ pos: [104.099229, 30.412988], label: "小学", title: "天府中学附属小学" },
+			{ pos: [104.033268, 30.476311], label: "小学", title: "天府三小" },
+			{ pos: [104.03801, 30.487286], label: "小学", title: "天府四小" },
+			{ pos: [104.080346, 30.497132], label: "小学", title: "天府五小（华阳实验小学东区）" },
+			{ pos: [104.094686, 30.492938], label: "小学", title: "天府六小" },
+			{ pos: [104.051099, 30.489116], label: "小学", title: "美岸小学" },
+			{ pos: [104.045606, 30.476514], label: "小学", title: "华阳小学（南区）" },
+			{ pos: [104.044647, 30.43707], label: "小学", title: "正兴小学" },
+			{ pos: [104.051475, 30.379007], label: "小学", title: "煎茶小学" },
+			{ pos: [104.064860, 30.436737], label: "小学", title: "天府七小" },
+			{ pos: [104.084730, 30.440927], label: "小学", title: "元音小学K12" },
+			{ pos: [104.076759, 30.478049], label: "小学", title: "沙河小学K12" },
+			{ pos: [104.121218, 30.397553], label: "小学", title: "三根松小学K12" },
+			{ pos: [104.107013, 30.42071], label: "小学", title: "省社科院附属小学（兴隆小学）" },
+			{ pos: [104.107024, 30.474378], label: "小学", title: "大石小学K12" },
+			{ pos: [104.114642, 30.490697], label: "小学", title: "万安小学" },
+		];
+		var zhongs = [
+			{ pos: [104.06597, 30.511617], label: "中学", title: "华阳中学" },
+			{ pos: [104.065261, 30.498861], label: "中学", title: "华阳一中" },
+			{ pos: [104.046765, 30.513965], label: "中学", title: "华阳三中" },
+			{ pos: [104.11065, 30.492713], label: "中学", title: "万安中学" },
+			{ pos: [104.110135, 30.472723], label: "中学", title: "大石中学" },
+			{ pos: [104.077939, 30.476292], label: "中学", title: "沙河中学" },
+			{ pos: [104.103027, 30.410231], label: "中学", title: "天府中学" },
+			{ pos: [104.037581, 30.471429], label: "中学", title: "天府四中" },
+			{ pos: [104.043939, 30.435109], label: "中学", title: "正兴中学" },
+			{ pos: [104.056646, 30.376897], label: "中学", title: "煎茶中学" },
+			{ pos: [104.062456, 30.433499], label: "中学", title: "天府七中" },
+			{ pos: [104.107003, 30.418536], label: "中学", title: "省社科院附属中学（兴隆中学）" },
+		];
+
+
+		for (let i = 0; i < marks.length; i++) {
+			mk = marks[i]
+			// console.log(mk.title)
+			var marker = new AMap.Marker({
+				position: mk.pos,
+				// icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+				icon: 'poi-marker-default.png',
+				// offset: new AMap.Pixel(-13, -30)
+			});
+
+			marker.setMap(map);
+
+			// 设置鼠标划过点标记显示的文字提示
+			marker.setTitle(mk.title);
+
+			// 设置label标签
+			// label默认蓝框白底左上角显示，样式className为：amap-marker-label
+			marker.setLabel({
+				offset: new AMap.Pixel(-23, -5),  //设置文本标注偏移量
+				content: "<div class='info'>" + mk.label + "</div>", //设置文本标注内容
+				direction: 'right' //设置文本标注方位
+			});
+		}
+
+		//加载SimpleMarker
+		AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
+
+			paint_marker(SimpleMarker, yous, "#E8B8F0", "幼");
+			paint_marker(SimpleMarker, xiaos, "#48F22A", "小");
+			paint_marker(SimpleMarker, zhongs, "#FF8686", "中");
+
+		});
+
+		function paint_marker(SimpleMarker, points, you_color, cat) {
+			var iconTheme = 'fresh';
+
+			//内置的样式
+			// var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
+
+			// var you_color = "#48F22A";
+			for (var i = 0, len = points.length; i < len; i++) {
+				mk = points[i]
+				new SimpleMarker({
+					iconTheme: iconTheme,
+					//使用内置的iconStyle
+					// iconStyle: iconStyles[11],
+					// iconStyle: 'redx',
+					iconStyle: {
+						// src: 'default-fs8-copy.png',
+						style: {
+							width: '20px'
+						}
+					},
+
+					//图标文字
+					iconLabel: {
+						//A,B,C.....
+						innerHTML: cat, //"幼",
+						style: {
+							//颜色, #333, red等等，这里仅作示例，取iconStyle中首尾相对的颜色
+							// color: iconStyles[len - 1 - i]
+							color: you_color,
+							opacity: 0.3,
+							top: "15px"
+						}
+					},
+
+					//显示定位点
+					showPositionPoint: {
+						color: you_color,//点的颜色
+						radius: 5 //点的半径。 因圆形使用了CSS3的border-radius属性，IE8及以下浏览器会呈现正方形
+					},
+
+
+					map: map,
+					position: mk.pos,
+					title: mk.title,
+
+					//Marker的label(见https://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
+					// label: {
+					// 	content: mk.label,
+					// 	// offset: new AMap.Pixel(27, 25)
+					// }
+				});
+			}
+		}
+	</script>
+</body>
+
+</html>
