@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-	<title>Land Price Mark</title>
+	<title>AMap position collections</title>
 	<!--link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/-->
 	<link rel="stylesheet" href="demo-center.css" />
 	<style>
@@ -102,7 +102,8 @@
 			{ pos: [104.139224, 30.788596], label: "0.7,r1.5", title: "广西建工,74亩，2020-03-31" },
 			{ pos: [104.120115, 30.626167], label: "2.1,r2.7", title: "建发2w+7%移交,130亩，2020-04-02" },
 			{ pos: [103.974902, 30.64326], label: "1.3,r2.5", title: "中南1.27,19亩,2020-04-02" },
-			{ pos: [104.074108, 30.361062], label: "1.1,r2.2", title: "荣盛1w+12%移交,2020-04-08" }
+			{ pos: [104.074108, 30.361062], label: "1.1,r2.2", title: "荣盛1w+12%移交,2020-04-08" },
+			{ pos: [104.006498, 30.72562], label: "1,r2.8", title: "金牛区房地产综合开发,2020-04-09" },
 		];
 
 		var yous = [
@@ -116,7 +117,6 @@
 			{ pos: [104.055294, 30.5084], label: "小学", title: "华阳实验小学" },
 			{ pos: [104.051078, 30.507762], label: "小学", title: "华阳小学" },
 			{ pos: [104.062086, 30.51244], label: "小学", title: "华阳中学附属小学" },
-			{ pos: [104.077449, 30.504213], label: "小学", title: "成都师范紫藤银都小学" },
 			{ pos: [104.084091, 30.407811], label: "小学", title: "成都市实验小学（天府一小）" },
 			{ pos: [104.099229, 30.412988], label: "小学", title: "天府中学附属小学" },
 			{ pos: [104.033268, 30.476311], label: "小学", title: "天府三小" },
@@ -134,6 +134,11 @@
 			{ pos: [104.107013, 30.42071], label: "小学", title: "省社科院附属小学（兴隆小学）" },
 			{ pos: [104.107024, 30.474378], label: "小学", title: "大石小学K12" },
 			{ pos: [104.114642, 30.490697], label: "小学", title: "万安小学" },
+
+			{ pos: [104.077449, 30.504213], label: "小学", title: "成都师范紫藤银都小学" },
+			{ pos: [104.090698, 30.238627], label: "小学", title: "眉山天府新区第一小学" },
+			{ pos: [104.083574, 30.229988], label: "小学", title: "钢铁小学" },
+			{ pos: [104.053941, 30.25076], label: "小学", title: "视高小学" },
 		];
 		var zhongs = [
 			{ pos: [104.06597, 30.511617], label: "中学", title: "华阳中学" },
@@ -148,6 +153,22 @@
 			{ pos: [104.056646, 30.376897], label: "中学", title: "煎茶中学" },
 			{ pos: [104.062456, 30.433499], label: "中学", title: "天府七中" },
 			{ pos: [104.107003, 30.418536], label: "中学", title: "省社科院附属中学（兴隆中学）" },
+
+			{ pos: [104.046833, 30.184734], label: "中学", title: "清水中学" },
+		];
+
+
+		var others = [
+			{ pos: [104.062358, 30.314638], label: "其他", title: "文创城指挥部" },
+			{ pos: [104.081176, 30.243240], label: "其他", title: "寨子山公园" },
+			{ pos: [104.064075, 30.221586], label: "其他", title: "柴桑河公园" },
+			{ pos: [104.047445, 30.170251], label: "其他", title: "乐高乐园" },
+			{ pos: [104.060239, 30.162012], label: "其他", title: "万科天府城" },
+
+			{ pos: [104.061644, 30.432963], label: "其他", title: "红莲村南站TOD,S5+L19双机场+L16文创城" },
+			{ pos: [104.061730, 30.424785], label: "其他", title: "秦皇寺TOD,S5+L6" },
+			{ pos: [104.163997, 30.385998], label: "其他", title: "天府新站" },
+			{ pos: [104.435043, 30.294143], label: "其他", title: "天府国际机场" },
 		];
 
 
@@ -178,13 +199,15 @@
 		//加载SimpleMarker
 		AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
 
-			paint_marker(SimpleMarker, yous, "#E8B8F0", "幼");
-			paint_marker(SimpleMarker, xiaos, "#48F22A", "小");
-			paint_marker(SimpleMarker, zhongs, "#FF8686", "中");
+			paint_marker(SimpleMarker, yous, "#E8B8F0", "幼", 5);
+			paint_marker(SimpleMarker, xiaos, "#48F22A", "小", 5);
+			paint_marker(SimpleMarker, zhongs, "#FF8686", "中", 5);
+
+			paint_marker(SimpleMarker, others, "#F6E052", "O", 3);
 
 		});
 
-		function paint_marker(SimpleMarker, points, you_color, cat) {
+		function paint_marker(SimpleMarker, points, you_color, cat, rad) {
 			var iconTheme = 'fresh';
 
 			//内置的样式
@@ -221,7 +244,7 @@
 					//显示定位点
 					showPositionPoint: {
 						color: you_color,//点的颜色
-						radius: 5 //点的半径。 因圆形使用了CSS3的border-radius属性，IE8及以下浏览器会呈现正方形
+						radius: rad //点的半径。 因圆形使用了CSS3的border-radius属性，IE8及以下浏览器会呈现正方形
 					},
 
 
@@ -236,6 +259,45 @@
 					// }
 				});
 			}
+		}
+
+		AMap.plugin('AMap.DistrictSearch', function () {
+			// 创建行政区查询对象
+			var district = new AMap.DistrictSearch({
+				// 返回行政区边界坐标等具体信息
+				extensions: 'all',
+				// 设置查询行政区级别为 区 
+				level: 'district'
+			})
+			drawBundry(district, '仁寿县', '#F86CEA');
+			drawBundry(district, '彭山区', '#FB9B6E');
+			drawBundry(district, '简阳市', '#6CB5F8');
+		});
+
+		function drawBundry(district, distName, sColor) {
+			district.search(distName, function (status, result) {
+				// 获取朝阳区的边界信息
+				var bounds = result.districtList[0].boundaries
+				var polygons = []
+				if (bounds) {
+					for (var i = 0, l = bounds.length; i < l; i++) {
+						//生成行政区划polygon
+						var polygon = new AMap.Polygon({
+							map: map,
+							strokeWeight: 1,
+							path: bounds[i],
+							fillOpacity: 0,
+							fillColor: '#CCF3FF',
+							strokeColor: sColor,
+							// 线样式还支持 'solid, dashed'
+							strokeStyle: "dashed",
+						})
+						polygons.push(polygon)
+					}
+					// 地图自适应
+					// map.setFitView()
+				}
+			});
 		}
 	</script>
 </body>
