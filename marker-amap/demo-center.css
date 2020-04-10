@@ -21,6 +21,7 @@ body {
   line-height: 1.5;
   font-weight: 300;
   color: #111213;
+  position: relative;
 }
 
 hr {
@@ -237,7 +238,7 @@ h4 {
   border-radius: .25rem;
   position: fixed;
   top: 1rem;
-  background-color: rgba(114, 124, 245, .8);
+  background-color: rgba(81, 131, 236, 0.8);
   width: auto;
   min-width: 22rem;
   border-width: 0;

@@ -17,13 +17,15 @@
 		}
 
 		.amap-icon img {
-			width: 25px;
-			height: 34px;
+			width: 15px;
+			height: 20px;
+			opacity: 0.3;
 		}
 
 		.amap-marker-label {
 			border: 0;
 			background-color: transparent;
+			padding: 1px;
 		}
 
 		.info {
@@ -31,6 +33,10 @@
 			top: 0;
 			right: 0;
 			min-width: 0;
+		}
+
+		.label-info {
+			color: white;
 		}
 
 		.you {
@@ -44,19 +50,45 @@
 			right: 1rem;
 			color: white;
 		}
+
+		.ctrl {
+			position: absolute;
+			top: 10px;
+			left: 70px;
+		}
+
+		.ctrl a {
+			background-color: forestgreen;
+			opacity: 0.3;
+			color: white;
+			text-decoration: none;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+
+		.hide-label {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="container"></div>
+	<div class="ctrl">
+		<a href="#" onclick="showLandPrice()">Show</a>
+		<p id="myresult">|</p>
+		<a href="#" onclick="hideLandPrice()">Hide</a>
+	</div>
 	<!--script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ccfc57a0582fa29221d1c33db558cf61"></script-->
 	<script type="text/javascript" src="maps.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
 		var map = new AMap.Map('container', {
 			resizeEnable: true,
-			center: [104.068832, 30.533208],
-			zoom: 11
+			// center: [104.068832, 30.533208], //全成都
+			// zoom: 11
+			center: [104.070988, 30.461487], // 天府新区
+			zoom: 12
 		});
 		// styleName: normal, dark, light, whitesmoke, fresh
 		var styleName = "amap://styles/whitesmoke";
@@ -108,41 +140,48 @@
 
 		var yous = [
 			{ pos: [104.081677, 30.405969], label: "实验幼", title: "天府实验幼儿园" },
+			{ pos: [104.10181, 30.41365], label: "兴隆实验幼", title: "兴隆实验幼儿园（西区）" },
 			{ pos: [104.117721, 30.396567], label: "?幼", title: "天府?幼（三根松幼儿园）" },
 			{ pos: [104.082798, 30.443684], label: "八幼", title: "天府八幼" },
-			{ pos: [104.075665, 30.475423], label: "幼儿园", title: "华阳幼儿园-沙河" },
+			{ pos: [104.075665, 30.475423], label: "", title: "华阳幼儿园-沙河" },
+			{ pos: [104.063025, 30.498405], label: "", title: "华阳幼儿园-西区" },
 		];
 		var xiaos = [
-			{ pos: [104.053395, 30.52805], label: "小学", title: "锦江小学" },
-			{ pos: [104.055294, 30.5084], label: "小学", title: "华阳实验小学" },
-			{ pos: [104.051078, 30.507762], label: "小学", title: "华阳小学" },
-			{ pos: [104.062086, 30.51244], label: "小学", title: "华阳中学附属小学" },
-			{ pos: [104.084091, 30.407811], label: "小学", title: "成都市实验小学（天府一小）" },
+			{ pos: [104.053395, 30.52805], label: "锦江小学", title: "锦江小学" },
+			{ pos: [104.055294, 30.5084], label: "华阳实小", title: "华阳实验小学" },
+			{ pos: [104.051078, 30.507762], label: "华阳小学", title: "华阳小学" },
+			{ pos: [104.063132, 30.497841], label: "小学", title: "南湖小学（北区）" },
+			{ pos: [104.064806, 30.497254], label: "西寺小学", title: "南湖小学（西寺小学）" },
+			{ pos: [104.062086, 30.51244], label: "华中附小", title: "华阳中学附属小学" },
+			{ pos: [104.084091, 30.407811], label: "一小", title: "成都市实验小学（天府一小）" },
 			{ pos: [104.099229, 30.412988], label: "小学", title: "天府中学附属小学" },
-			{ pos: [104.033268, 30.476311], label: "小学", title: "天府三小" },
-			{ pos: [104.03801, 30.487286], label: "小学", title: "天府四小" },
-			{ pos: [104.080346, 30.497132], label: "小学", title: "天府五小（华阳实验小学东区）" },
-			{ pos: [104.094686, 30.492938], label: "小学", title: "天府六小" },
-			{ pos: [104.051099, 30.489116], label: "小学", title: "美岸小学" },
-			{ pos: [104.045606, 30.476514], label: "小学", title: "华阳小学（南区）" },
-			{ pos: [104.044647, 30.43707], label: "小学", title: "正兴小学" },
-			{ pos: [104.051475, 30.379007], label: "小学", title: "煎茶小学" },
-			{ pos: [104.064860, 30.436737], label: "小学", title: "天府七小" },
-			{ pos: [104.084730, 30.440927], label: "小学", title: "元音小学K12" },
-			{ pos: [104.076759, 30.478049], label: "小学", title: "沙河小学K12" },
-			{ pos: [104.121218, 30.397553], label: "小学", title: "三根松小学K12" },
-			{ pos: [104.107013, 30.42071], label: "小学", title: "省社科院附属小学（兴隆小学）" },
-			{ pos: [104.107024, 30.474378], label: "小学", title: "大石小学K12" },
-			{ pos: [104.114642, 30.490697], label: "小学", title: "万安小学" },
+			{ pos: [104.102252, 30.413774], label: "教科院附小（西区）", title: "天府新区教科院附小（西区）梦溪东二街388号" },
+			{ pos: [104.107013, 30.42071], label: "教科院附小", title: "天府新区教科院附小（兴隆小学）" },
+			{ pos: [104.121218, 30.397553], label: "三根松小学", title: "三根松小学K12" },
+			{ pos: [104.13555, 30.479249], label: "二小", title: "天府二小" },
+			{ pos: [104.033268, 30.476311], label: "三小", title: "天府三小" },
+			{ pos: [104.03801, 30.487286], label: "美岸小学", title: "美岸小学" },
+			{ pos: [104.051099, 30.489116], label: "四小", title: "天府四小" },
+			{ pos: [104.045606, 30.476514], label: "华阳小学（南区）", title: "华阳小学（南区）" },
+			{ pos: [104.080346, 30.497132], label: "五小", title: "天府五小（华阳实验小学东区）" },
+			{ pos: [104.094686, 30.492938], label: "六小", title: "天府六小" },
+			{ pos: [104.044647, 30.43707], label: "正兴小学", title: "正兴小学" },
+			{ pos: [104.051475, 30.379007], label: "煎茶小学", title: "煎茶小学" },
+			{ pos: [104.064860, 30.436737], label: "七小", title: "天府七小" },
+			{ pos: [104.042447, 30.48212], label: "鹤林小学（天府十小）", title: "鹤林小学（天府十小）祥鹤一街456号，2020/9开学" },
+			{ pos: [104.084730, 30.440927], label: "元音小学", title: "元音小学K12/元音幼儿园/元音中学" },
+			{ pos: [104.076759, 30.478049], label: "天府实小", title: "沙河小学K12（天府新区实验小学）香沙路169号" },
+			{ pos: [104.107024, 30.474378], label: "大石小学", title: "大石小学K12" },
+			{ pos: [104.114642, 30.490697], label: "万安小学", title: "万安小学" },
 
 			{ pos: [104.077449, 30.504213], label: "小学", title: "成都师范紫藤银都小学" },
-			{ pos: [104.090698, 30.238627], label: "小学", title: "眉山天府新区第一小学" },
-			{ pos: [104.083574, 30.229988], label: "小学", title: "钢铁小学" },
-			{ pos: [104.053941, 30.25076], label: "小学", title: "视高小学" },
+			{ pos: [104.090698, 30.238627], label: "眉山天府一小", title: "眉山天府一小" },
+			{ pos: [104.083574, 30.229988], label: "钢铁小学", title: "钢铁小学" },
+			{ pos: [104.053941, 30.25076], label: "视高小学", title: "视高小学" },
 		];
 		var zhongs = [
 			{ pos: [104.06597, 30.511617], label: "中学", title: "华阳中学" },
-			{ pos: [104.065261, 30.498861], label: "中学", title: "华阳一中" },
+			{ pos: [104.06369, 30.499584], label: "中学", title: "华阳一中" },
 			{ pos: [104.046765, 30.513965], label: "中学", title: "华阳三中" },
 			{ pos: [104.11065, 30.492713], label: "中学", title: "万安中学" },
 			{ pos: [104.110135, 30.472723], label: "中学", title: "大石中学" },
@@ -155,20 +194,21 @@
 			{ pos: [104.107003, 30.418536], label: "中学", title: "省社科院附属中学（兴隆中学）" },
 
 			{ pos: [104.046833, 30.184734], label: "中学", title: "清水中学" },
+			{ pos: [104.091163, 30.237141], label: "小学", title: "眉山天府一中" },
 		];
 
 
 		var others = [
-			{ pos: [104.062358, 30.314638], label: "其他", title: "文创城指挥部" },
-			{ pos: [104.081176, 30.243240], label: "其他", title: "寨子山公园" },
-			{ pos: [104.064075, 30.221586], label: "其他", title: "柴桑河公园" },
-			{ pos: [104.047445, 30.170251], label: "其他", title: "乐高乐园" },
-			{ pos: [104.060239, 30.162012], label: "其他", title: "万科天府城" },
+			{ pos: [104.062358, 30.314638], label: "文创城", title: "文创城指挥部" },
+			{ pos: [104.081176, 30.243240], label: "公园", title: "寨子山公园" },
+			{ pos: [104.064075, 30.221586], label: "公园", title: "柴桑河公园" },
+			{ pos: [104.047445, 30.170251], label: "乐高", title: "乐高乐园" },
+			{ pos: [104.060239, 30.162012], label: "万科", title: "万科天府城" },
 
-			{ pos: [104.061644, 30.432963], label: "其他", title: "红莲村南站TOD,S5+L19双机场+L16文创城" },
-			{ pos: [104.061730, 30.424785], label: "其他", title: "秦皇寺TOD,S5+L6" },
-			{ pos: [104.163997, 30.385998], label: "其他", title: "天府新站" },
-			{ pos: [104.435043, 30.294143], label: "其他", title: "天府国际机场" },
+			{ pos: [104.061644, 30.432963], label: "红莲村南站TOD", title: "红莲村南站TOD,S5+L19双机场+L16文创城" },
+			{ pos: [104.061730, 30.424785], label: "秦皇寺TOD", title: "秦皇寺TOD,S5+L6" },
+			{ pos: [104.163997, 30.385998], label: "天府新站", title: "天府新站" },
+			{ pos: [104.435043, 30.294143], label: "天府国际机场", title: "天府国际机场" },
 		];
 
 
@@ -190,10 +230,52 @@
 			// 设置label标签
 			// label默认蓝框白底左上角显示，样式className为：amap-marker-label
 			marker.setLabel({
-				offset: new AMap.Pixel(-23, -5),  //设置文本标注偏移量
-				content: "<div class='info'>" + mk.label + "</div>", //设置文本标注内容
+				offset: new AMap.Pixel(-5, -10),  //设置文本标注偏移量
+				content: "<div class='info label-info hide-label'>" + mk.label + "</div>", //设置文本标注内容
 				direction: 'right' //设置文本标注方位
 			});
+		}
+
+		function showLandPrice() {
+			document.getElementById("myresult").innerHTML = "+";
+			showMarkerIcons(true);
+			showMarkerInfo(true);
+		}
+
+		function hideLandPrice() {
+			showMarkerIcons(false);
+			showMarkerInfo(false);
+		}
+
+		function showMarkerInfo(show) {
+			// .amap-marker-label
+			let myElements = document.querySelectorAll(".label-info");
+			for (let i = 0; i < myElements.length; i++) {
+				var divElement = myElements[i];
+				// divElement.classList.toggle("hide-label");
+				if (show == true) {
+					if (divElement.classList.contains("hide-label") == true) {
+						divElement.classList.remove("hide-label");
+						divElement.style.opacity = 1;
+					}
+				} else {
+					if (divElement.classList.contains("hide-label") == false) {
+						divElement.classList.add("hide-label");
+					}
+				}
+			}
+		}
+		function showMarkerIcons(show) {
+			//amap-icon
+			let myElements = document.querySelectorAll(".amap-icon");
+			for (let i = 0; i < myElements.length; i++) {
+				if (show == true) {
+					myElements[i].classList.remove("hide-label");
+					myElements[i].firstChild.style.opacity = 0.8;
+				} else {
+					myElements[i].classList.add("hide-label");
+				}
+			}
 		}
 
 		//加载SimpleMarker
@@ -253,10 +335,11 @@
 					title: mk.title,
 
 					//Marker的label(见https://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
-					// label: {
-					// 	content: mk.label,
-					// 	// offset: new AMap.Pixel(27, 25)
-					// }
+					label: {
+						// content: mk.label,
+						content: "<div class='info label-info hide-label'>" + mk.label + "</div>", //设置文本标注内容
+						// offset: new AMap.Pixel(27, 25)
+					}
 				});
 			}
 		}
