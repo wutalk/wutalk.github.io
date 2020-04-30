@@ -44,7 +44,7 @@ public class SearchTest {
 	@Test
 	public void testBinarySearch() throws Exception {
 		int[] a = { 2, 4, 12, 50, 126, 1000 };
-		Sorter.bubbleSort(a);
+		SimpleSorter.bubbleSort(a);
 		int pos = SearchEnginee.binarySearch(a, 126);
 		assertEquals(4, pos);
 		int pos2 = SearchEnginee.binarySearch(a, 5);

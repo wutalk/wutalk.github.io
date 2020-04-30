@@ -4,78 +4,79 @@
  */
 package io.github.wutalk.concurrent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-
 class CountingTask extends TimerTask {
 
-	private static final Logger LOGGER = Logger.getLogger(CountingTask.class);
-	String name;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CountingTask.class);
+    String name;
 
-	public CountingTask(String name) {
-		super();
-		this.name = name;
-	}
+    public CountingTask(String name) {
+        super();
+        this.name = name;
+    }
 
-	int count = 0;
+    int count = 0;
 
-	@Override
-	public void run() {
-		LOGGER.info(name + " count: " + count);
-		// if don't catch, no error message on log4j
-		try {
-			if (count++ > 3) {
-				throw new RuntimeException();
-			}
-		} catch (Exception e) {
-			LOGGER.error("error: " + e);
-		}
-	}
+    @Override
+    public void run() {
+        LOGGER.info(name + " count: " + count);
+        // if don't catch, no error message on log4j
+        try {
+            if (count++ > 3) {
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            LOGGER.error("error: " + e);
+        }
+    }
 }
 
 class CountingRunnable implements Runnable {
-	private static final Logger LOGGER = Logger.getLogger(CountingRunnable.class);
-	String name;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CountingRunnable.class);
 
-	public CountingRunnable(String name) {
-		this.name = name;
-	}
+    String name;
 
-	int count = 0;
+    public CountingRunnable(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public void run() {
-		LOGGER.info(name + " count: " + count);
-		try {
-			if (count++ > 3) {
-				throw new RuntimeException();
-			}
-		} catch (Exception e) {
-			LOGGER.error("error: " + e);
-		}
-	}
+    int count = 0;
+
+    @Override
+    public void run() {
+        LOGGER.info(name + " count: " + count);
+        try {
+            if (count++ > 3) {
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            LOGGER.error("error: " + e);
+        }
+    }
 }
 
 /**
- * 
  * @author wutalk
  */
 public class TimerVsExecutorService {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(new CountingTask("timer"), 500, 1000);
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(new CountingTask("timer"), 500, 1000);
 
-		ScheduledExecutorService exec = Executors.newScheduledThreadPool(2);
-		exec.scheduleAtFixedRate(new CountingRunnable("exec"), 500, 1000, TimeUnit.MILLISECONDS);
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(2);
+        exec.scheduleAtFixedRate(new CountingRunnable("exec"), 500, 1000, TimeUnit.MILLISECONDS);
 
-		System.out.println("waiting...");
+        System.out.println("waiting...");
 
-	}
+    }
 }
