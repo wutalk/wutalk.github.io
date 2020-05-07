@@ -12,12 +12,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * all 3 simple sort algorithms are O(n^2) comparison.
+ * selection sort eliminates much swap compared to bubble sort.
+ * insertion sort is the most efficient one in these 3.
+ *
  * @author wutalk
  */
 class SimpleSorter {
 
     /**
-     * O(n2) n*n comparison and n*n swap
+     * O(n^2) n*n comparison and n*n swap
      *
      * @param a
      */
@@ -35,7 +39,47 @@ class SimpleSorter {
         }
     }
 
+    /**
+     * find out the index of minimal element, and place it in left most
+     * O(n^2) n*n comparison but only n swap
+     *
+     * @param a
+     */
+    public static void selectionSort(int[] a) {
+        int in, out, min;
+        for (out = 0; out < a.length - 1; out++) {
+            min = out;
+            for (in = out + 1; in < a.length; in++) {
+                if (a[in] < a[min]) {
+                    min = in;
+                }
+            }
+            // swap
+            int t = a[out];
+            a[out] = a[min];
+            a[min] = t;
+        }
+    }
+
+    /**
+     * no swap, only shift(copy)
+     *
+     * @param a
+     */
     public static void insertionSort(int[] a) {
+        int in, out;
+        for (out = 1; out < a.length; out++) {
+            int t = a[out];
+            in = out;
+            while (in > 0 && a[in - 1] > t) {
+                a[in] = a[in - 1];
+                --in;
+            }
+            a[in] = t;
+        }
+    }
+
+    public static void insertionSort2(int[] a) {
         for (int i = 0; i < a.length; i++) {
             // Insert a[i] into the sorted sublist
             // Select the item at the beginning of the as yet unsorted section
@@ -63,17 +107,27 @@ class SimpleSorter {
 public class SortTest {
 
     @Test
-    public void testInsertionSort() throws Exception {
-        int[] scores = {12, 5, 7, 19, 22, 1};
-        SimpleSorter.insertionSort(scores);
-        assertEquals(1, scores[0]);
-        assertEquals(22, scores[scores.length - 1]);
-    }
-
-    @Test
     public void testBubbleSort() throws Exception {
         int[] scores = {12, 5, 7, 19, 22, 1};
         SimpleSorter.bubbleSort(scores);
+        assertSorted(scores);
+    }
+
+    @Test
+    public void testInsertionSort() throws Exception {
+        int[] scores = {12, 5, 7, 19, 22, 1};
+        SimpleSorter.insertionSort(scores);
+        assertSorted(scores);
+    }
+
+    @Test
+    public void testSelectionSort() throws Exception {
+        int[] scores = {12, 5, 7, 19, 22, 1};
+        SimpleSorter.selectionSort(scores);
+        assertSorted(scores);
+    }
+
+    private void assertSorted(int[] scores) {
         System.out.println(Arrays.toString(scores));
         for (int i = 1; i < scores.length; i++) {
             assertTrue(scores[i] > scores[i - 1]);
