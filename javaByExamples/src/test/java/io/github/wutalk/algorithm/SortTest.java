@@ -114,6 +114,17 @@ public class SortTest {
     }
 
     @Test
+    public void testSwapInt() throws Exception {
+        int a = 5;
+        int b = 3;
+        a = a ^ b;
+        b = b ^ a;
+        a = a ^ b;
+        assertEquals(3, a);
+        assertEquals(5, b);
+    }
+
+    @Test
     public void testInsertionSort() throws Exception {
         int[] scores = {12, 5, 7, 19, 22, 1};
         SimpleSorter.insertionSort(scores);
