@@ -29,10 +29,58 @@ public class Calc {
     @Test
     public void testEvalPostfixExpr() {
         assertEquals(1, evalPostfixExpr("23+4-"));
+        assertEquals(1, evalPostfixExpr("23*4/"));
+        assertEquals(14, evalPostfixExpr("234*+"));
+        assertEquals(14, evalPostfixExpr("234+*"));
+        assertEquals(26, evalPostfixExpr("23*45*+"));
+        assertEquals(-5, evalPostfixExpr("23+45-*"));
+        assertEquals(15, evalPostfixExpr("23+4*5-"));
+        assertEquals(14, evalPostfixExpr("234567+/-*+"));
+    }
+
+    @Test
+    public void testEvalPostfixExprMoreDigits() {
+        assertEquals(1, evalPostfixExpr("2,3,+,4,-", ","));
+        assertEquals(-165, evalPostfixExpr("21,300,+,486,-", ","));
     }
 
     private int evalPostfixExpr(String expr) {
-        return 0;
+        return evalPostfixExpr(expr, "");
+    }
+
+    private int evalPostfixExpr(String expr, String delimiter) {
+        String[] cs = expr.split(delimiter);
+        Stack<Integer> nums = new Stack<>();
+        for (int i = 0; i < cs.length; i++) {
+            String c = cs[i];
+            if (ALL_OPS_Str.contains(c)) {
+                if (nums.size() < 2) {
+                    throw new IllegalArgumentException("Invalid express");
+                }
+                int r = nums.pop();
+                int l = nums.pop();
+                switch (c) {
+                    case "+":
+                        nums.push(l + r);
+                        break;
+                    case "-":
+                        nums.push(l - r);
+                        break;
+                    case "*":
+                        nums.push(l * r);
+                        break;
+                    case "/":
+                        nums.push(l / r);
+                        break;
+                }
+            } else {
+                nums.push(Integer.valueOf(c));
+            }
+        }
+        if (nums.size() != 1) {
+            throw new IllegalArgumentException("Invalid express. only 1 should be exist");
+        }
+        return nums.pop();
     }
 
     @Test
@@ -44,6 +92,7 @@ public class Calc {
 
 
     static List<Character> ALL_OPS = Arrays.asList(new Character[]{'+', '-', '*', '/', '(', ')'});
+    static List<String> ALL_OPS_Str = Arrays.asList(new String[]{"+", "-", "*", "/", "(", ")"});
 
     private String infix2Postfix(String in) {
         // to support 1+ digits numbers, just replace delimiter with non-empty chars like ","
