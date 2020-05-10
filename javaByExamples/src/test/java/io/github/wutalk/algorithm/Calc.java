@@ -9,8 +9,25 @@ import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * This Calculator uses two steps to parse and evaluate arithmetic expression:
+ * step 1: Transform the arithmetic expression into a postfix notation.
+ * step 2: Evaluate the postfix expression.
+ */
 public class Calc {
+
+    @Test
+    public void testCalc() {
+        assertEquals(1, parseAndCalc("2+3-4"));
+        assertEquals(316, parseAndCalc("20+300-4"));
+        assertEquals(30, parseAndCalc("20+2*((30-40/2)-5)"));
+    }
+
+    public int parseAndCalc(String expr) {
+        String deldelimiter = ",";
+        return evalPostfixExpr(infix2Postfix(expr, deldelimiter), deldelimiter);
+    }
+
     @Test
     public void testInfix2Postfix() {
         assertEquals("23+4-", infix2Postfix("2+3-4"));
@@ -24,6 +41,7 @@ public class Calc {
         assertEquals("23+45-*", infix2Postfix("(2+3)*(4-5)"));
         assertEquals("23+4*5-", infix2Postfix("((2+3)*4)-5"));
         assertEquals("234567+/-*+", infix2Postfix("2+3*(4-5/(6+7))"));
+        assertEquals("2342/-2*+", infix2Postfix("2+(3-4/2)*2"));
     }
 
     @Test
@@ -115,21 +133,29 @@ public class Calc {
                 if (t != "") {
                     result.add(t);
                 }
+                //"2+(3-4/2)*2"
+                if (aChar == ')') {
+                    Character tmpOp = ops.pop();
+                    while(tmpOp != '(') {
+                        result.add(String.valueOf(tmpOp));
+                        if (ops.isEmpty()) {
+                            break;
+                        }
+                        tmpOp = ops.pop();
+                    }
+                    t = "";
+                    continue;
+                }
                 if (!ops.isEmpty()) {
                     Character preOp = ops.peek();
                     if (getPriority(aChar) <= getPriority(preOp)) {
                         if (preOp != '(') {
                             result.add(String.valueOf(ops.pop()));
-                        } else {
-                            // just pop
-                            ops.pop();
                         }
                     }
                 }
                 t = "";
-                if (aChar != ')') {
-                    ops.push(aChar);
-                }
+                ops.push(aChar);
             }
         }
         if (t != "") {
