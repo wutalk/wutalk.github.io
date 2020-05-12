@@ -1,4 +1,4 @@
-package io.github.wutalk.plate;
+package com.ex.plate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
