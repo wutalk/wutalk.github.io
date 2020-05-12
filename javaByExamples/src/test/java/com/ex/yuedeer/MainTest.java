@@ -1,4 +1,4 @@
-package com.ex;
+package com.ex.yuedeer;
 
 import org.junit.Test;
 
