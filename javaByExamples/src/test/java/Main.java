@@ -1,53 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-/**
- * https://exercise.acmcoder.com/online/online_judge_ques?ques_id=1664&konwledgeId=134
- * <pre>
- * 第一天不变，以后涨一天，跌一天，涨两天，跌一天，涨三天，跌一天...依此
- * 1 n=1
- * +1
- * -1 (2=0+2)
- * +1
- * +1
- * -1 (5=2+3)
- * +1
- * +1
- * +1
- * -1 (9=5+4)
- * +1
- * +1
- * +1
- * +1
- * -1 (14=9+5)
- * ...
- * n
- * </pre>
- */
 public class Main {
     public static void main(String[] args) {
         Scanner scanIn = null;
         try {
             scanIn = new Scanner(System.in);
+            // scanIn.nextInt();
             int lc = 0;
-            while (scanIn.hasNextInt()) {
-                int n = scanIn.nextInt();
-                int sum = 1;
-                int prev = 0;
-                int prevMinus = 0;
-                for (int i = 1; i < n; i++) {
-                    if (i == 2) {
-                        prevMinus = 2;
-                        prev = 3;
-                        --sum;
-                        continue;
+            while (scanIn.hasNextLine()) {
+                String line = scanIn.nextLine().trim();
+                System.out.printf("line#%d: [%s]\n", ++lc, line);
+                String[] items = line.split(" ");
+                if (items.length == 2) {
+                    int personNumber = Integer.parseInt(items[0]);
+                    int caseNumber = Integer.parseInt(items[1]);
+
+                    List<String[]> cases = new ArrayList<>();
+                    for (int i = 0; i < caseNumber; i++) {
+                        line = scanIn.nextLine().trim();
+                        System.out.printf("line#%d: [%s]\n", ++lc, line);
+                        items = line.split(" ");
+                        if (!"0".equals(items[2].trim())) {
+                            cases.add(new String[]{items[0].trim(), items[1].trim()});
+                        }
                     }
-                    if (i == prevMinus + prev) {
-                        --sum;
-                        prevMinus += prev++;
-                    }
-                    ++sum;
                 }
-                System.out.println(sum);
             }
         } finally {
             if (scanIn != null) {
