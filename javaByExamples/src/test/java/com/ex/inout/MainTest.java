@@ -9,9 +9,12 @@ import java.util.List;
 
 public class MainTest {
     @Test
-    public void testCalc() {
+    public void test() {
         List<String[]> cases = new ArrayList<>();
         cases.add(new String[] { "2", "3", "1" });
-        assertEquals(1, Main.countSame(cases));
+        assertEquals(1, Main.countSame(cases).size());
+
+        cases.clear();
+
     }
 }

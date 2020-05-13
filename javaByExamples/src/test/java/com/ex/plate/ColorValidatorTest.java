@@ -1,4 +1,4 @@
-package io.github.wutalk.plate;
+package com.ex.plate;
 
 import org.junit.Assert;
 import org.junit.Test;
