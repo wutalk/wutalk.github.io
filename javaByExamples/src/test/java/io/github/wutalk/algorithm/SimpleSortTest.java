@@ -104,7 +104,7 @@ class SimpleSorter {
     }
 }
 
-public class SortTest {
+public class SimpleSortTest {
 
     @Test
     public void testBubbleSort() throws Exception {
