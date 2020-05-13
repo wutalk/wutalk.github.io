@@ -1,7 +1,9 @@
+package com.ex.cmcc.second;
+
 import java.util.Scanner;
 
 /**
- * this is an entry point for reading from system in
+ * at least how long should be the ladder to hang all posters
  */
 public class Main {
     public static void main(String[] args) {
