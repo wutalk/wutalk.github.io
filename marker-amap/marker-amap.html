@@ -97,13 +97,20 @@
 		map.plugin(["AMap.MapType"], function () {
 			//地图类型切换
 			var type = new AMap.MapType({
-				defaultType: 0 //使用2D地图
+				// showRoad: true,
+				defaultType: 0 // 取值为0：默认2D地图; 取值为1：卫星图 默认值：0
 			});
 			map.addControl(type);
+			type.hide();
+		});
+
+		map.plugin(["AMap.Scale"], function () {
+			var scale = new AMap.Scale();
+			map.addControl(scale);
 		});
 
 		map.plugin(["AMap.ToolBar"], function () {
-			//加载工具条
+			//加载工具条 放大缩小+ -
 			var tool = new AMap.ToolBar();
 			map.addControl(tool);
 		});
@@ -214,6 +221,8 @@
 			{ pos: [104.074108, 30.361062], label: "1.1,r2.2", title: "荣盛1w+12%移交,2020-04-08" },
 			{ pos: [104.006498, 30.72562], label: "1,r2.8", title: "金牛区房地产综合开发,2020-04-09" },
 			{ pos: [104.117384, 30.387718], label: "1.15,r2", title: "龙光50%溢价16%移交,70亩，2020-04-15" },
+
+			{ pos: [104.041424, 30.547900], label: "1.66,r2", title: "合景泰富,47亩，2020-05-12" },
 		];
 
 		var yous = [
@@ -249,7 +258,7 @@
 			{ pos: [104.082626, 30.456674], label: "小学用地", title: "小学用地" },
 			{ pos: [104.085024, 30.445737], label: "小学用地", title: "小学用地" },
 			{ pos: [104.095871, 30.434628], label: "小学用地", title: "小学用地" },
-			
+
 			{ pos: [104.044647, 30.43707], label: "正兴小学", title: "正兴小学" },
 			{ pos: [104.051475, 30.379007], label: "煎茶小学", title: "煎茶小学" },
 			{ pos: [104.064860, 30.436737], label: "七小", title: "天府七小" },
@@ -280,7 +289,7 @@
 			{ pos: [104.076028, 30.468261], label: "中学用地", title: "中学用地" },
 			{ pos: [104.086397, 30.44570], label: "中学用地", title: "中学用地" },
 			{ pos: [104.096622, 30.436274], label: "中学用地", title: "中学用地" },
-			
+
 			{ pos: [104.107003, 30.418536], label: "中学", title: "省社科院附属中学（兴隆中学）" },
 
 			{ pos: [104.046833, 30.184734], label: "中学", title: "清水中学" },
