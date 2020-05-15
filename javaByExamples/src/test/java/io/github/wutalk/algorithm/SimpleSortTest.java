@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author wutalk
  */
-class SimpleSorter {
+public class SimpleSortTest {
 
     /**
      * O(n^2) n*n comparison and n*n swap
@@ -102,14 +102,13 @@ class SimpleSorter {
         a[j] = a[j] ^ a[i];
         a[i] = a[i] ^ a[j];
     }
-}
+//}
 
-public class SimpleSortTest {
 
     @Test
     public void testBubbleSort() throws Exception {
         int[] scores = {12, 5, 7, 19, 22, 1};
-        SimpleSorter.bubbleSort(scores);
+        bubbleSort(scores);
         assertSorted(scores);
     }
 
@@ -127,14 +126,14 @@ public class SimpleSortTest {
     @Test
     public void testInsertionSort() throws Exception {
         int[] scores = {12, 5, 7, 19, 22, 1};
-        SimpleSorter.insertionSort(scores);
+        insertionSort(scores);
         assertSorted(scores);
     }
 
     @Test
     public void testSelectionSort() throws Exception {
         int[] scores = {12, 5, 7, 19, 22, 1};
-        SimpleSorter.selectionSort(scores);
+        selectionSort(scores);
         assertSorted(scores);
     }
 
@@ -150,9 +149,9 @@ public class SimpleSortTest {
     @Test
     public void testSwap() throws Exception {
         int[] scores = {2, 5, 8};
-        SimpleSorter.swap(scores, 0, 1);
+        swap(scores, 0, 1);
         assertEquals(5, scores[0]);
-        SimpleSorter.swap(scores, 0, 2);
+        swap(scores, 0, 2);
         assertEquals(8, scores[0]);
     }
 }
