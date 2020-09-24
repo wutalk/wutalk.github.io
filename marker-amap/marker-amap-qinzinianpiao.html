@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+	<title>AMap position collections</title>
+	<!--link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/-->
+	<link rel="stylesheet" href="demo-center.css" />
+	<style>
+		html,
+		body,
+		#container {
+			height: 100%;
+			width: 100%;
+		}
+
+		.amap-icon img {
+			width: 15px;
+			height: 20px;
+			opacity: 0.6;
+		}
+
+		.amap-marker-label {
+			border: 0;
+			background-color: transparent;
+			padding: 1px;
+		}
+
+		.info {
+			position: relative;
+			top: 0;
+			right: 0;
+			min-width: 0;
+		}
+
+		.label-info {
+			color: white;
+		}
+
+		.you {
+			border-radius: .25rem;
+			position: fixed;
+			top: 1rem;
+			background-color: yellow;
+			width: auto;
+			min-width: 22rem;
+			border-width: 0;
+			right: 1rem;
+			color: white;
+		}
+
+		.ctrl {
+			position: absolute;
+			top: 10px;
+			left: 70px;
+		}
+
+		.ctrl a {
+			background-color: forestgreen;
+			opacity: 0.3;
+			color: white;
+			text-decoration: none;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+
+		.hide-label {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<div class="ctrl">
+		<a href="#" onclick="showLandPrice()">Show</a>
+		<p id="myresult">|</p>
+		<a href="#" onclick="hideLandPrice()">Hide</a>
+	</div>
+	<!--script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ccfc57a0582fa29221d1c33db558cf61"></script-->
+	<script type="text/javascript" src="maps.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript">
+		var map = new AMap.Map('container', {
+			resizeEnable: true,
+			center: [104.068832, 30.533208], //全成都
+			zoom: 10
+			// center: [104.070988, 30.461487], // 天府新区
+			// zoom: 12
+		});
+		// styleName: normal, dark, light, whitesmoke, fresh
+		var styleName = "amap://styles/whitesmoke";
+		map.setMapStyle(styleName);
+
+		map.plugin(["AMap.MapType"], function () {
+			//地图类型切换
+			var type = new AMap.MapType({
+				// showRoad: true,
+				defaultType: 0 // 取值为0：默认2D地图; 取值为1：卫星图 默认值：0
+			});
+			map.addControl(type);
+			type.hide();
+		});
+
+		map.plugin(["AMap.Scale"], function () {
+			var scale = new AMap.Scale();
+			map.addControl(scale);
+		});
+
+		map.plugin(["AMap.ToolBar"], function () {
+			//加载工具条 放大缩小+ -
+			var tool = new AMap.ToolBar();
+			map.addControl(tool);
+		});
+
+// 
+		var marks = [
+			{ pos: [103.915277,30.608977], label: "浩海立方海洋馆", title: "*****" },
+			{ pos: [104.073353,30.575329], label: "环球中心天堂岛海洋乐园", title: "*****" },
+			{ pos: [103.831462,30.72978], label: "国色天香水上乐园", title: "xxxx" },
+			{ pos: [104.256972,30.291737], label: "三岔湖长岛天堂洲际酒店水乐园", title: "xxxx" },
+			{ pos: [104.022727,30.1101], label: "黑龙滩天堂岛水乐园", title: "xxxx" },
+			{ pos: [103.84493,30.383258], label: "重归亚特兰蒂斯", title: "xxxx" },
+			{ pos: [103.831469,30.730316], label: "星期八小镇", title: "xxxx" },
+			{ pos: [104.04702,30.603799], label: "三和老爷车博物馆", title: "xxxx" },
+			{ pos: [104.162812,30.588955], label: "许燎原现代艺术博物馆", title: "xxxx" },
+			{ pos: [104.020862,30.689887], label: "海街日记儿童摄影", title: "xxxx" },
+			
+			{ pos: [103.987404,30.71841], label: "里宅游泳开卡游3天", title: "xxxx" },
+			{ pos: [103.988999,30.721117], label: "卡其乐儿童乐园", title: "xxxx" },
+			{ pos: [104.045933,30.555957], label: "珐玛宝贝亲子", title: "xxxx" },
+			{ pos: [104.187567,30.4412], label: "香薰山谷", title: "xxxx" },
+			{ pos: [104.164798,30.368857], label: "贝瑞草莓庄园+枇杷博览园", title: "xxxx" },
+			
+			// 很远了
+			{ pos: [104.351449,30.738429], label: "我的田园自然王国（哼哼农场）", title: "xxxx" },
+			{ pos: [104.367767,30.724218], label: "天府庄园+幸福庄园", title: "xxxx" },
+			{ pos: [103.962541,30.849485], label: "青杠树爱尼动物", title: "xxxx" },
+			{ pos: [103.509434,30.718525], label: "多彩山地滑水", title: "xxxx" },
+			{ pos: [103.851087,31.094174], label: "彭州丹景山+湔江河谷小火车", title: "xxxx" },
+			{ pos: [104.270295,30.708223], label: "好侬人有机农庄", title: "xxxx" },
+			{ pos: [104.15655,30.588742], label: "意在艺陶艺体验", title: "xxxx" },
+			{ pos: [103.697296,31.064411], label: "都江堰茶溪谷", title: "xxxx" },
+			{ pos: [103.708952,31.043819], label: "都江堰花溪农场", title: "xxxx" },
+
+
+
+		];
+
+
+		for (let i = 0; i < marks.length; i++) {
+			mk = marks[i]
+			// console.log(mk.title)
+			var marker = new AMap.Marker({
+				position: mk.pos,
+				// icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+				icon: 'poi-marker-default.png',
+				// offset: new AMap.Pixel(-13, -30)
+			});
+
+			marker.setMap(map);
+
+			// 设置鼠标划过点标记显示的文字提示
+			marker.setTitle(mk.title);
+
+			// 设置label标签
+			// label默认蓝框白底左上角显示，样式className为：amap-marker-label
+			marker.setLabel({
+				offset: new AMap.Pixel(-5, -10),  //设置文本标注偏移量
+				content: "<div class='info label-info'>" + mk.label + "</div>", //设置文本标注内容
+				direction: 'right' //设置文本标注方位
+			});
+		}
+
+
+		var others = [
+			{ pos: [103.941308,30.512902], label: "空港花田", title: "foo" },
+		];
+
+		//加载SimpleMarker
+		AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
+
+			paint_marker(SimpleMarker, others, "#3FAFF4", "O", 5);
+
+		});
+
+		function paint_marker(SimpleMarker, points, you_color, cat, rad) {
+			var iconTheme = 'fresh';
+
+			//内置的样式
+			// var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
+
+			// var you_color = "#48F22A";
+			for (var i = 0, len = points.length; i < len; i++) {
+				mk = points[i]
+				new SimpleMarker({
+					iconTheme: iconTheme,
+					//使用内置的iconStyle
+					// iconStyle: iconStyles[11],
+					// iconStyle: 'redx',
+					iconStyle: {
+						// src: 'default-fs8-copy.png',
+						style: {
+							width: '20px'
+						}
+					},
+
+					//图标文字
+					iconLabel: {
+						//A,B,C.....
+						innerHTML: cat, //"幼",
+						style: {
+							//颜色, #333, red等等，这里仅作示例，取iconStyle中首尾相对的颜色
+							// color: iconStyles[len - 1 - i]
+							color: you_color,
+							opacity: 0.8,
+							top: "15px"
+						}
+					},
+
+					//显示定位点
+					showPositionPoint: {
+						color: you_color,//点的颜色
+						radius: rad //点的半径。 因圆形使用了CSS3的border-radius属性，IE8及以下浏览器会呈现正方形
+					},
+
+
+					map: map,
+					position: mk.pos,
+					title: mk.title,
+
+					//Marker的label(见https://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
+					label: {
+						// content: mk.label,
+						content: "<div class='info label-info hide-label'>" + mk.label + "</div>", //设置文本标注内容
+						// offset: new AMap.Pixel(27, 25)
+					}
+				});
+			}
+		}
+
+	</script>
+</body>
+
+</html>
